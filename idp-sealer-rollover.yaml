@@ -1,0 +1,61 @@
+---
+### idp-sealer-rollover configuration ###
+# Configuration defined in a higher scope (e.g. global) can be overridden
+# on a lower scope (e.g. within a project).
+
+## Global configuration ##
+# Docker image containing seckeygen.sh in PATH
+idp_image: nxadm/idp-sealer-rollover:3.3.0
+# The local directory where the idp key stores are kept
+local_dir:  /opt/company/etc/idp-sealer-rollover
+# SCP as user, defaults to root
+# scp_user: 'root'
+# SSH key to use, default to what ever the local user has configured.
+# ssh_key: /opt/company/etc/idp-sealer-rollover/script_id_rsa
+
+## Project configuration ##
+projects:
+  idp:
+    # The remote directory to where the idp key stores will be synced.
+    remote_dir: /docker/idp/persistent
+    # UID (or user) to give ownership of the files in remote_dir.
+    uid: 11000
+    # Environment where the keystore will be deployed
+    environments:
+      test:
+        password: yeahright
+        hosts:
+          - server-t-1.example.com
+          - server-t-2.example.com
+      quality:
+        password: yeahright
+        hosts:
+          - server-q-1.example.com
+          - server-q-2.example.com
+      production:
+        password: yeahright
+        hosts:
+          - server-p-1.example.com
+          - server-p-2.example.com
+#  idpx:
+#    # The remote directory to where the idp key stores will be synced.
+#    remote_dir: /docker/idpx/persistent
+#    # UID (or user) to give ownership of the files in remote_dir.
+#    uid: 12000
+#    # Environment where the keystore will be deployed
+#    environments:
+#      test:
+#        password: foobar
+#        hosts:
+#          - server-t-1.example.com
+#          - server-t-2.example.com
+#      quality:
+#        password: foobar
+#        hosts:
+#          - server-q-1.example.com
+#          - server-q-2.example.com
+#      production:
+#        password: foobar
+#        hosts:
+#          - server-p-1.example.com
+#          - server-p-2.example.com

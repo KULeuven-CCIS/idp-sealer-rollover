@@ -1,0 +1,11 @@
+SHELL=/bin/bash
+# Add the directory where idp-sealer-rollover is installed to PATH
+PATH=/bin:/usr/bin
+MAILTO=you@example.com
+# idp-sealer-rollover <project> <enviroment>
+48 3 * * * root idp-sealer-rollover idp test
+48 3 * * * root idp-sealer-rollover idp quality
+48 3 * * * root idp-sealer-rollover idp production
+48 4 * * * root idp-sealer-rollover idpx test
+48 4 * * * root idp-sealer-rollover idpx quality
+48 4 * * * root idp-sealer-rollover idpx production
