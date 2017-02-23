@@ -39,6 +39,7 @@ $ idp-sealer-rollover idp production
 
 # Configuration
 
-A commented configuration is included as idp-sealer-rollover.yaml.
+A commented configuration is included as
+[idp-sealer-rollover.yaml](idp-sealer-rollover.yaml).
 
 
