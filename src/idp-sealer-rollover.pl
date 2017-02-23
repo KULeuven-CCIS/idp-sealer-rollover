@@ -71,7 +71,7 @@ my @docker_run = (
     'docker', 'run', '-ti', '--rm', '-v', "$work_dir:/mnt", $params{idp_image},
     'seckeygen.sh',
     '--storefile', '/mnt/sealer.jks',
-    '--storepass', $params{password},
+    '--storepass', $params{sealer_password},
     '--versionfile', '/mnt/sealer.kver',
     '--alias', 'secret'
 );
