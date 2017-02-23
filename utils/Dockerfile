@@ -19,6 +19,13 @@ mkdir /opt && curl -s -L $IDP_URL -o idp.tar.gz && sha256sum idp.tar.gz && \
 echo "${idp_sha256}  idp.tar.gz" | sha256sum -c - && \
 tar xzf idp.tar.gz -C /opt && mv /opt/shib* /opt/idp &&\
 # Cleanup
+cd /opt/idp; rm -rf `ls -1 |grep -v ^'bin\|webapp'` && \
+cd /opt/idp/bin; rm -rf `ls -1 |grep -v ^'seckeygen.sh\|runclass.sh'` && \
+cd /opt/idp/webapp; rm -rf `ls -1 |grep -v ^'WEB-INF'` && \
+cd /opt/idp/webapp/WEB-INF; rm -rf `ls -1 |grep -v ^'lib'` && \
+cd /opt/idp/webapp/WEB-INF/lib; \
+rm -rf `ls -1 | \
+grep -v ^'idp-core\|java-support\|jcommander\|logback-classic\|logback-core\|slf4j-api'` && \
 rm -f /opt/idp.tar.gz && apk del curl
 
 ### Working directory ###
