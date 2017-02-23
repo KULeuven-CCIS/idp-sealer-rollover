@@ -18,31 +18,27 @@ my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 
 ### CLI ###
 # Defaults
-my $config_file = $ENV{IDP_SEALER_ROLLOVER_CONFIG} # Environment value
+my $config_file = $ENV{IDP_SEALER_ROLLOVER_CONFIG}; # Environment value
 my %params = (
+    uid             => 'root',
+    ssh_user        => 'root',
+    ssh_key         => '/root/.ssh/id_rsa',
     idp_image       => undef,
     local_dir       => undef,
     remote_dir      => undef,
-    uid             => 'root',
-    ssh_user        => 'root';
-    ssh_key         => '/root/.ssh/id_rsa';
     sealer_password => undef,
     hosts           => undef,
-)
+);
 my $help;
 
 GetOptions( 'config=s' => \$config_file, 'help' => \$help)
-    or die("Error in command line arguments.\n");
-if ($help) { help() and exit 0 }
+    or say_and_exit("Error in command line arguments.");
+help() if ($help);
 if (@ARGV != 2) {
-    say STDERR 'You need to supply a project and a environment parameter.';
-    help();
-    exit 1;
+    say_and_exit('You need to supply a project and a environment parameter.')
 }
 if ( ! -r $config_file) {
-    say STDERR "The configuration file ($config_file) is not readable.";
-    say STDERR 'Bailing out...';
-    exit 1;
+    say_and_exit("The configuration file ($config_file) is not readable.");
 }
 my $project     = $ARGV[0];
 my $environment = $ARGV[1];
@@ -54,27 +50,24 @@ my $data_project = $data_all->config->{$project}->{$environment};
 
 # Global
 for my $key (keys %params) {
-    $param{$key} = $data_all->{$key} if $data_all->{key};
+    $params{$key} = $data_all->{$key} if $data_all->{key};
 }
 # Project
 for my $key (keys %params) {
-    $param{$key} = $data_project->{$key} if $data_project->{key};
+    $params{$key} = $data_project->{$key} if $data_project->{key};
 }
 # Missing parameters
-my $error = 0;
+my @missing;
 for my $key (keys %params) {
-    if (! defined $param{$key}) {
-        say "Parameter $key is missing.";
-        $error = 1;
-    }
+    push @missing, "Parameter $key is missing." unless (defined $params{$key});
 }
-exit 1 if $error;
+say_and_exit(@missing);
 
 # Composed values
-my $time   = strftime '%Y%m%d_%H%M%S', localtime;
-my $work_dir = "$local_dir/$project/$environment";
+my $time       = strftime '%Y%m%d_%H%M%S', localtime;
+my $work_dir   = "$params{local_dir}/$project/$environment";
 my @docker_run = (
-    'docker', 'run', '-ti', '--rm', '-v', "$work_dir:/mnt", $idp_image,
+    'docker', 'run', '-ti', '--rm', '-v', "$work_dir:/mnt", $params{idp_image},
     'seckeygen.sh',
     '--storefile', '/mnt/sealer.jks',
     '--storepass', $params{password},
@@ -84,23 +77,17 @@ my @docker_run = (
 
 ### Main ###
 # Create look for the files where the keys are stored
-if (! -e "$local_dir/$project") {
-    mkdir($env_dir, 0700) or die("Can not create $local_dir/$project: $!");
+if (! -e "$params{local_dir}/$project") {
+    mkdir("$params{local_dir}/$project", 0700) or
+        say_and_exit("Can not create $params{local_dir}/$project: $!");
 }
-if (! -e "$local_dir/$project/$environment") {
-    mkdir($env_dir, 0700) or
-    die("Can not create $local_dir/$project/$environment: $!");
+if (! -e "$params{local_dir}/$project/$environment") {
+    mkdir("$params{local_dir}/$project/$environment", 0700) or
+        say_and_exit(
+            "Can not create $params{local_dir}/$project/$environment: $!");
 }
-chmod(0700, $env_dir) or die("Can chmod $env_dir: $!");
-chdir($env_dir) or die("Can not chdir to $env_dir: $!");
-
-# Rotate the keys
-system(@docker_run) == 0 or do {
-    restore();
-    say STDERR 'The dockerized sealer update script returned a fail status.';
-    say STDERR 'No sealer files were uploaded.';
-    exit 1;
-};
+chmod(0700, $work_dir) or say_and_exit("Can chmod $work_dir: $!");
+chdir($work_dir)       or say_and_exit("Can not chdir to $work_dir: $!");
 
 # Verify the hosts are up and we have write access
 for my $host ( @{ $params{hosts} } ) {
@@ -113,30 +100,44 @@ for my $host ( @{ $params{hosts} } ) {
         "rm -f $params{remote_dir}/$time" );
     system(@ssh_args) == 0 or do  {
         restore();
-        say STDERR "Remote ssh server check failed on ($host).";
-        say STDERR 'No sealer files were uploaded.';
-        exit 1;
-    };
+        say_and_exit(
+            "Remote ssh server check failed on ($host).",
+            'No sealer files were uploaded.'
+        );
+    }
 }
 
 # Create a backup
 for my $file (qw/sealer.jks sealer.kver/) {
     if (-f $file) {
-        copy($file, "${file}_$time") or die("Can not backup $file: $!");
+        copy($file, "${file}_$time") or
+        say_and_exit(
+            "Can not backup $file: $!", 'No sealer files were uploaded.'
+        );
     }
 }
 
+# Rotate the keys
+system(@docker_run) == 0 or do {
+    restore();
+    say_and_exit(
+        'The dockerized sealer update script returned a fail status.',
+        'No sealer files were uploaded.'
+    );
+};
+
 # Upload the keys (and rollback if needed)
-my (@uploaded, $error);
+my @uploaded;
 for my $host ( @{ $params{hosts} } ) {
     my @scp_args = (
         'scp', '-q', '-i', $params{ssh_key}, 'sealer.jks', 'sealer.kver',
-        $parmas{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
+        $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
     system(@scp_args) == 0 or do {
-        say STDERR "The sealer files can not be uploaded to $host.";
-        say STDERR 'This is serious. Inmediate action is needed!';
-        say STDERR "Verify the idp sealer state on $host!";
-        $error = 1;
+        say_and_exit(
+            "The sealer files can not be uploaded to $host.",
+            'This is serious. Inmediate action is needed!',
+            "Verify the idp sealer state on $host!"
+        );
         last;
     };
     my @ssh_args = (
@@ -144,28 +145,32 @@ for my $host ( @{ $params{hosts} } ) {
         "chmod 400 $params{remote_dir}/* && " .
         "chown -R $params{uid} $params{remote_dir}" );
     system(@ssh_args) == 0 or do {
-        say STDERR 'The sealer files can not be to chowned to the application uid.';
-        say STDERR 'This is serious. Inmediate action is needed!';
-        say STDERR "Verify the idp sealer state on $host!";
-        $error = 1;
+        say_and_exit(
+            'The sealer files can not be to chowned to the application uid.',
+            'This is serious. Inmediate action is needed!',
+            "Verify the idp sealer state on $host!"
+        );
         last;
     };
     push @uploaded, $host;
 }
 
-if ($error) {
-    say STDERR "Restoring sealer files.";
+if (scalar @uploaded != scalar @{ $params{hosts} } ) {
     restore();
+    my $error = 0;
     for my $host (@uploaded) {
         my @scp_args = (
-            'scp', '-q', '-i', $ssh_key, 'sealer.jks', 'sealer.kver',
+            'scp', '-q', '-i', $params{ssh_dir}, 'sealer.jks', 'sealer.kver',
             $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
         system(@scp_args) == 0 or do {
             say STDERR "The sealer files could not be restored on $host.";
+            sat STDERR 'This is serious. Inmediate action is needed!',
             say STDERR 'The idp configuration on ' . $host .
                         'could be in a incoherent state.';
+            $error = 1;
         };
     }
+    exit 1 if ($error);
 }
 
 exit 0;
@@ -182,11 +187,23 @@ sub help {
     say '    -c|--config: configuration file';
     say '    (default: environment variable $IDP_SEALER_ROLLOVER_CONFIG)';
     say "    -h|--help:   this help info\n";
+    exit 0;
 }
 
 sub restore {
+    say STDERR "Restoring sealer files.";
     if ( -f "sealer.jks_$time" ) {
         move("sealer.jks_$time",  'sealer.jks')  or die($!);
         move("sealer.kver_$time", 'sealer.kver') or die($!);
+    } else {
+        say STDERR "Warning: no backupped files found.";
+    }
+}
+
+sub say_and_exit {
+    if (@_) {
+        say STDERR $_ for @_;
+        say STDERR "Bailing out...";
+        exit 1;
     }
 }
