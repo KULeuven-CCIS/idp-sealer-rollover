@@ -77,7 +77,7 @@ my @docker_run = (
 );
 
 ### Main ###
-# Create look for the files where the keys are stored
+# Create directory for the files where the keys are stored
 if (! -e "$params{local_dir}/$project") {
     mkdir("$params{local_dir}/$project", 0700) or
         say_and_exit("Can not create $params{local_dir}/$project: $!");
@@ -100,7 +100,6 @@ for my $host ( @{ $params{hosts} } ) {
         "touch $params{remote_dir}/$time && " .
         "rm -f $params{remote_dir}/$time" );
     system(@ssh_args) == 0 or do  {
-        restore();
         say_and_exit(
             "Remote ssh server check failed on ($host).",
             'No sealer files were uploaded.'
