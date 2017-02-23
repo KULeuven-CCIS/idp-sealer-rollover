@@ -1576,18 +1576,19 @@ my $project     = $ARGV[0];
 my $environment = $ARGV[1];
 
 ### Configuration ###
-my $yaml         = YAML::Tiny->read($config_file);
-my $data_all     = $yaml->[0];
-my $data_project = $data_all->config->{$project}->{$environment};
+my $yaml             = YAML::Tiny->read($config_file);
+my $data_all         = $yaml->[0];
+my $data_project     = $data_all->{projects}->{$project};
+my $data_project_env =
+    $data_all->{projects}->{$project}->{environments}->{$environment};
 
 # Global
-for my $key (keys %params) {
-    $params{$key} = $data_all->{$key} if $data_all->{key};
+for my $level ($data_all, $data_project, $data_project_env) {
+    for my $key (keys %params) {
+        $params{$key} = $level->{$key} if exists $level->{$key};
+    }
 }
-# Project
-for my $key (keys %params) {
-    $params{$key} = $data_project->{$key} if $data_project->{key};
-}
+
 # Missing parameters
 my @missing;
 for my $key (keys %params) {
@@ -1602,7 +1603,7 @@ my @docker_run = (
     'docker', 'run', '-ti', '--rm', '-v', "$work_dir:/mnt", $params{idp_image},
     'seckeygen.sh',
     '--storefile', '/mnt/sealer.jks',
-    '--storepass', $params{password},
+    '--storepass', $params{sealer_password},
     '--versionfile', '/mnt/sealer.kver',
     '--alias', 'secret'
 );
@@ -1663,7 +1664,7 @@ my @uploaded;
 for my $host ( @{ $params{hosts} } ) {
     my @scp_args = (
         'scp', '-q', '-i', $params{ssh_key}, 'sealer.jks', 'sealer.kver',
-        $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
+        $params{ssh_user} . '@' . $host . ':' . $params{remote_dir} . '/' );
     system(@scp_args) == 0 or do {
         say_and_exit(
             "The sealer files can not be uploaded to $host.",
@@ -1693,7 +1694,8 @@ if (scalar @uploaded != scalar @{ $params{hosts} } ) {
     for my $host (@uploaded) {
         my @scp_args = (
             'scp', '-q', '-i', $params{ssh_dir}, 'sealer.jks', 'sealer.kver',
-            $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
+            $params{ssh_user} . '@' . $host . ':' . $params{remote_dir} . '/'
+        );
         system(@scp_args) == 0 or do {
             say STDERR "The sealer files could not be restored on $host.";
             sat STDERR 'This is serious. Inmediate action is needed!',
