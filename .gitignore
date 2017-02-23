@@ -21,3 +21,4 @@ nytprof.out
 utils/fatpacker.trace 
 utils/packlists
 utils/fatlib
+*.sw?
