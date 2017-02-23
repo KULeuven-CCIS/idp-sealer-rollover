@@ -1553,6 +1553,7 @@ my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 my $config_file = $ENV{IDP_SEALER_ROLLOVER_CONFIG}; # Environment value
 my %params = (
     uid             => 'root',
+    docker_user     => 'root',
     ssh_user        => 'root',
     ssh_key         => '/root/.ssh/id_rsa',
     idp_image       => undef,
