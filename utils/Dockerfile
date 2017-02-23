@@ -15,7 +15,7 @@ set -xv; \
 export IDP_URL="${idp_baseurl}/${version}/shibboleth-identity-provider-${version}.tar.gz"; \
 apk add --no-cache bash curl && \
 # Download IDP
-mkdir /opt && curl -s -L $IDP_URL -o idp.tar.gz && sha256sum idp.tar.gz && \
+mkdir /opt/idp && curl -s -L $IDP_URL -o idp.tar.gz && sha256sum idp.tar.gz && \
 echo "${idp_sha256}  idp.tar.gz" | sha256sum -c - && \
 tar xzf idp.tar.gz -C /opt && mv /opt/shib* /opt/idp &&\
 # Cleanup
