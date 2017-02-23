@@ -46,7 +46,7 @@ my $environment = $ARGV[1];
 ### Configuration ###
 my $yaml         = YAML::Tiny->read($config_file);
 my $data_all     = $yaml->[0];
-my $data_project = $data_all->config->{$project}->{$environment};
+my $data_project = $data_all->{$project}->{$environment};
 
 # Global
 for my $key (keys %params) {
