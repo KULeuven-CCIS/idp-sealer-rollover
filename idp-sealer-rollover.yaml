@@ -23,17 +23,17 @@ projects:
     # Environment where the keystore will be deployed
     environments:
       test:
-        password: yeahright
+        sealer_password: yeahright
         hosts:
           - server-t-1.example.com
           - server-t-2.example.com
       quality:
-        password: yeahright
+        sealer_password: yeahright
         hosts:
           - server-q-1.example.com
           - server-q-2.example.com
       production:
-        password: yeahright
+        sealer_password: yeahright
         hosts:
           - server-p-1.example.com
           - server-p-2.example.com
@@ -45,17 +45,17 @@ projects:
 #    # Environment where the keystore will be deployed
 #    environments:
 #      test:
-#        password: foobar
+#        sealer_password: foobar
 #        hosts:
 #          - server-t-1.example.com
 #          - server-t-2.example.com
 #      quality:
-#        password: foobar
+#        sealer_password: foobar
 #        hosts:
 #          - server-q-1.example.com
 #          - server-q-2.example.com
 #      production:
-#        password: foobar
+#        sealer_password: foobar
 #        hosts:
 #          - server-p-1.example.com
 #          - server-p-2.example.com

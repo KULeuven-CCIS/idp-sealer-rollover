@@ -44,18 +44,19 @@ my $project     = $ARGV[0];
 my $environment = $ARGV[1];
 
 ### Configuration ###
-my $yaml         = YAML::Tiny->read($config_file);
-my $data_all     = $yaml->[0];
-my $data_project = $data_all->{$project}->{$environment};
+my $yaml             = YAML::Tiny->read($config_file);
+my $data_all         = $yaml->[0];
+my $data_project     = $data_all->{projects}->{$project};
+my $data_project_env =
+    $data_all->{projects}->{$project}->{environments}->{$environment};
 
 # Global
-for my $key (keys %params) {
-    $params{$key} = $data_all->{$key} if $data_all->{key};
+for my $level ($data_all, $data_project, $data_project_env) {
+    for my $key (keys %params) {
+        $params{$key} = $level->{$key} if exists $level->{$key};
+    }
 }
-# Project
-for my $key (keys %params) {
-    $params{$key} = $data_project->{$key} if $data_project->{key};
-}
+
 # Missing parameters
 my @missing;
 for my $key (keys %params) {
