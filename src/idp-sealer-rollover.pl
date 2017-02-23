@@ -33,7 +33,7 @@ my $help;
 
 GetOptions( 'config=s' => \$config_file, 'help' => \$help)
     or say_and_exit("Error in command line arguments.");
-help() if ($help);
+help() if ($help || @ARGV == 0);
 if (@ARGV != 2) {
     say_and_exit('You need to supply a project and a environment parameter.')
 }
