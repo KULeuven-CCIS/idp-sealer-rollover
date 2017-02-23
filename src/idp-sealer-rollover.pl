@@ -132,7 +132,7 @@ my @uploaded;
 for my $host ( @{ $params{hosts} } ) {
     my @scp_args = (
         'scp', '-q', '-i', $params{ssh_key}, 'sealer.jks', 'sealer.kver',
-        $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
+        $params{ssh_user} . '@' . $host . ':' . $params{remote_dir} . '/' );
     system(@scp_args) == 0 or do {
         say_and_exit(
             "The sealer files can not be uploaded to $host.",
@@ -162,7 +162,8 @@ if (scalar @uploaded != scalar @{ $params{hosts} } ) {
     for my $host (@uploaded) {
         my @scp_args = (
             'scp', '-q', '-i', $params{ssh_dir}, 'sealer.jks', 'sealer.kver',
-            $params{user} . '@' . $host . ':' . $params{remote_dir} . '/' );
+            $params{ssh_user} . '@' . $host . ':' . $params{remote_dir} . '/'
+        );
         system(@scp_args) == 0 or do {
             say STDERR "The sealer files could not be restored on $host.";
             sat STDERR 'This is serious. Inmediate action is needed!',
