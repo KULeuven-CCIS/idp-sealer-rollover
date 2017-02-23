@@ -24,6 +24,7 @@ the source in [src/](src/idp-sealer-rollover.pl) and its dependencies
 [YAML::Tiny](https://metacpan.org/pod/YAML::Tiny). There is no need to install
 the dependencies.
 
+This project is hosted and used by the [KU Leuven University](www.kuleuven.be).
 
 # Usage
 
