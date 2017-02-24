@@ -22,9 +22,9 @@ In case you don't want to use the image on the Docker Hub, you can create
 you own with the [Dockerfile in de /utils directory](utils/Dockerfile).
 
 The [idp-sealer-rollover](idp-sealer-rollover) is an executable created from
-the source in [src/](src/idp-sealer-rollover.pl) and its dependencies
-[YAML::Tiny](https://metacpan.org/pod/YAML::Tiny). There is no need to install
-the dependencies.
+the source in [src/](src/idp-sealer-rollover.pl) and it include all the 
+dependencies ([YAML::Tiny](https://metacpan.org/pod/YAML::Tiny)). There is no
+need to install the dependencies.
 
 This project is hosted and used by the [KU Leuven University](https://www.kuleuven.be).
 
