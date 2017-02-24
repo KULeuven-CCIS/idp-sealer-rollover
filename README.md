@@ -1,6 +1,6 @@
 # Shibboleth IdP3 Data Sealer Rollover.
 
-[![Build Status](https://travis-ci.org/nxadm/idp-sealer-rollover.svg?branch=master)](https://travis-ci.org/nxadm/idp-sealer-rollover)
+[![Build Status](https://travis-ci.org/KULeuven-CCIS/idp-sealer-rollover.svg?branch=master)](https://travis-ci.org/KULeuven-CCIS/idp-sealer-rollover)
 
 idp-sealer-rollover is a helper program for the Open Source
 [Shibboleth IdP 3](https://shibboleth.net/products/identity-provider.html)
