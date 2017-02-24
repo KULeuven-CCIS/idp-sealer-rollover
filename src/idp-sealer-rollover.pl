@@ -13,7 +13,7 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.1.0';
+our $VERSION = '0.2.0';
 my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 
 ### CLI ###
