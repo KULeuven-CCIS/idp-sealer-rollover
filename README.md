@@ -8,14 +8,14 @@ SAML Identity Provider.
 
 The program does a rollover of the data sealer files and uploads them to the
 target servers. Its main use case is in a clustering mode when several
-Shibboleth IdP 3 backends share the dame data sealer data. Ideally it should
+Shibboleth IdP 3 backends share the same data sealer data. Ideally it should
 be run from an scheduler like cron (cron file included as
 [idp-sealer-rollover.cron](idp-sealer-rollover.cron]).
 
 The Shibboleth IdP 3 binaries needed to create and rollover the data sealer
 files are encapuslated with Docker. The size of the image is small by using
 an Alpine image and keeping only the IdP files needed for the key management.
-Therefor, the deployment machines (not the target machines), must have Docker
+Therefore, the deployment machines (not the target machines), must have Docker
 installed.
 
 In case you don't want to use the image on the Docker Hub, you can create
