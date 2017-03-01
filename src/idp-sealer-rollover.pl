@@ -36,7 +36,7 @@ GetOptions( 'config=s' => \$config_file, 'help' => \$help)
     or say_and_exit("Error in command line arguments.");
 help() if ($help || @ARGV == 0);
 if (@ARGV != 2) {
-    say_and_exit('You need to supply a project and a environment parameter.')
+    say_and_exit('You need to supply a project and an environment parameter.')
 }
 if ( ! -r $config_file) {
     say_and_exit("The configuration file ($config_file) is not readable.");
