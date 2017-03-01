@@ -112,9 +112,9 @@ for my $host ( @{ $params{hosts} } ) {
 for my $file (qw/sealer.jks sealer.kver/) {
     if (-f $file) {
         copy($file, "${file}_$time") or
-        say_and_exit(
-            "Can not backup $file: $!", 'No sealer files were uploaded.'
-        );
+            say_and_exit(
+                "Can not backup $file: $!", 'No sealer files were uploaded.'
+            );
     }
 }
 
