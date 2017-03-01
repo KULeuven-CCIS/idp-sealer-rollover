@@ -8,21 +8,21 @@ SAML Identity Provider.
 
 The program does a rollover of the data sealer files and uploads them to the
 target servers. Its main use case is in a clustering mode when several
-Shibboleth IdP 3 backends share the same data sealer. Ideally it should be 
+Shibboleth IdP 3 backends share the same data sealer. Ideally it should be
 run from an scheduler like cron (cron file included as
 [idp-sealer-rollover.cron](idp-sealer-rollover.cron)).
 
 The Shibboleth IdP 3 binaries needed to create and rollover the data sealer
-files are encapsulated with Docker. The size of the image is small by using
-an Alpine Linux image and only keeping the IdP files needed for the key 
-management. Therefore, the deployment machines (not the target machines), 
-must have Docker installed.
-
-In case you don't want to use the image on the Docker Hub, you can create
-you own with the [Dockerfile in de /utils directory](utils/Dockerfile).
+files are encapsulated with Docker. The size of the
+[image](https://hub.docker.com/r/nxadm/idp-sealer-rollover/) is small by using
+an Alpine Linux image and only keeping the IdP files needed for the key
+management. Therefore, the deployment machines (not the target machines),
+must have Docker installed. In case you don't want to use the image on the
+Docker Hub, you can create you own with the
+[Dockerfile in de /utils directory](utils/Dockerfile).
 
 The [idp-sealer-rollover](idp-sealer-rollover) is an executable created from
-the source in [src/](src/idp-sealer-rollover.pl) and it includes all the 
+the source in [src/](src/idp-sealer-rollover.pl) and it includes all the
 dependencies ([YAML::Tiny](https://metacpan.org/pod/YAML::Tiny)). There is no
 need to install the dependencies separatedly.
 
