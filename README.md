@@ -18,13 +18,13 @@ files are encapsulated with Docker. The size of the
 an Alpine Linux image and only keeping the IdP files needed for the key
 management. Therefore, the deployment machines (not the target machines),
 must have Docker installed. In case you don't want to use the image on the
-Docker Hub, you can create you own with the
-[Dockerfile in de /utils directory](utils/Dockerfile).
+Docker Hub, you can create your own with the
+[Dockerfile in the /utils directory](utils/Dockerfile).
 
 The [idp-sealer-rollover](idp-sealer-rollover) is an executable created from
 the source in [src/](src/idp-sealer-rollover.pl) and it includes all the
 dependencies ([YAML::Tiny](https://metacpan.org/pod/YAML::Tiny)). There is no
-need to install the dependencies separatedly.
+need to install the dependencies separately.
 
 This project is hosted and used by the [KU Leuven University](https://www.kuleuven.be).
 
