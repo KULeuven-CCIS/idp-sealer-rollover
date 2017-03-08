@@ -11,9 +11,11 @@ idp_image: nxadm/idp-sealer-rollover:3.3.0
 # The local directory where the idp key stores are kept
 local_dir:  /opt/company/etc/idp-sealer-rollover
 # SCP as user, defaults to root
-# scp_user: 'root'
+#scp_user: 'root'
 # SSH key to use, default to what ever the local user has configured.
-# ssh_key: /opt/company/etc/idp-sealer-rollover/script_id_rsa
+#ssh_key: /opt/company/etc/idp-sealer-rollover/script_id_rsa
+# Number of keys to maintain (default to 30)
+#count: 60
 
 ## Project configuration ##
 projects:
