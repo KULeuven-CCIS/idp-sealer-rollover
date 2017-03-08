@@ -31,7 +31,18 @@ This project is hosted and used by the [KU Leuven University](https://www.kuleuv
 # Usage
 
 ```
-$ idp-sealer-rollover <project> <environment>
+idp-sealer-rollover:
+Roll over Idp sealer keys using an IdP docker image, version x.x.x.
+Bugs to https://github.com/nxadm/idp-sealer-rollover.
+
+Usage:
+    idp-sealer-rollover <project> <environment> [-c <configuration file>]
+
+Parameters:
+    -c|--config: configuration file
+    (default: environment variable $IDP_SEALER_ROLLOVER_CONFIG)
+    -h|--help:   this help info
+
 ```
 
 E.g.
