@@ -10,4 +10,3 @@ perl:
   - "5.10"
 install: true
 script: src/idp-sealer-rollover.pl && ./idp-sealer-rollover
-

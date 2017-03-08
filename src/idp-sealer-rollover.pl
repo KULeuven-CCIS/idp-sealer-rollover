@@ -13,7 +13,7 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.2.0';
+our $VERSION = '0.3.0';
 my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 
 ### CLI ###
@@ -29,6 +29,7 @@ my %params = (
     remote_dir      => undef,
     sealer_password => undef,
     hosts           => undef,
+    count           => -1, # we use an invalid value to make it optional
 );
 my $help;
 
@@ -76,6 +77,7 @@ my @docker_run = (
     '--versionfile', '/mnt/sealer.kver',
     '--alias', 'secret'
 );
+push @docker_run, ('--count', $params{count}) if $params{count} > 0;
 
 ### Main ###
 # Create directory for the files where the keys are stored
