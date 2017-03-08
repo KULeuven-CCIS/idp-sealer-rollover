@@ -33,6 +33,7 @@ This project is hosted and used by the [KU Leuven University](https://www.kuleuv
 ```
 $ idp-sealer-rollover <project> <environment>
 ```
+
 E.g.
 ```
 $ idp-sealer-rollover idp test
