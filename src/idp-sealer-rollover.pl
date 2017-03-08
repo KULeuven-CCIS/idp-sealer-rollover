@@ -13,7 +13,7 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.3.1';
+our $VERSION = '0.3.2';
 my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 
 ### CLI ###
@@ -70,7 +70,7 @@ say_and_exit(@missing);
 my $time       = strftime '%Y%m%d_%H%M%S', localtime;
 my $work_dir   = "$params{local_dir}/$project/$environment";
 my @docker_run = (
-    'docker', 'run', '-ti', '--rm', '-v', "$work_dir:/mnt", $params{idp_image},
+    'docker', 'run', '--rm', '-v', "$work_dir:/mnt", $params{idp_image},
     'seckeygen.sh',
     '--storefile', '/mnt/sealer.jks',
     '--storepass', $params{sealer_password},
