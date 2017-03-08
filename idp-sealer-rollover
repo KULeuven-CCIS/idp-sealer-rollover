@@ -2745,7 +2745,7 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.3.0';
+our $VERSION = '0.3.1';
 my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
 
 ### CLI ###
@@ -2918,7 +2918,7 @@ sub help {
         "version $VERSION.";
     say "Bugs to $repo.";
     say "\nUsage:";
-    say '    idp-sealer-rollover <environment> [-c <configuration file>]';
+    say '    idp-sealer-rollover <project> <environment> [-c <configuration file>]';
     say "\nParameters:";
     say '    -c|--config: configuration file';
     say '    (default: environment variable $IDP_SEALER_ROLLOVER_CONFIG)';
