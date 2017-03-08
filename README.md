@@ -32,7 +32,7 @@ This project is hosted and used by the [KU Leuven University](https://www.kuleuv
 
 ```
 idp-sealer-rollover:
-Roll over Idp sealer keys using an IdP docker image, version 0.3.0.
+Roll over Idp sealer keys using an IdP docker image, version x.x.x.
 Bugs to https://github.com/nxadm/idp-sealer-rollover.
 
 Usage:
