@@ -14,8 +14,8 @@ run from an scheduler like cron (cron file included as
 
 The Shibboleth IdP 3 binaries needed to create and rollover the data sealer
 files are encapsulated with Docker. The size of the
-[image](https://hub.docker.com/r/nxadm/idp-sealer-rollover/) is small by using
-an Alpine Linux image and only keeping the IdP files needed for the key
+[image](https://hub.docker.com/r/kuleuvenccis/idp-sealer-rollover) is small by
+using Alpine Linux and only keeping the IdP files needed for the key
 management. Therefore, the deployment machines (not the target machines),
 must have Docker installed. In case you don't want to use the image on the
 Docker Hub, you can create your own with the

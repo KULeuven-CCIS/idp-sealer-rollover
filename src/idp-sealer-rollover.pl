@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
 
-#######################################################
-# Roll over IdP sealer keys using a Idp Docker image. #
-# https://github.com/nxadm/idp-sealer-rollover        #
-#######################################################
+########################################################
+# Roll over IdP sealer keys using a Idp Docker image.  #
+# https://github.com/KULeuven-CCIS/idp-sealer-rollover #
+########################################################
 
 use warnings;
 use strict;
@@ -13,8 +13,8 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.3.2';
-my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
+our $VERSION = '0.3.3';
+my  $repo    = 'https://github.com/KULeuven-CCIS/idp-sealer-rollover';
 
 ### CLI ###
 # Defaults

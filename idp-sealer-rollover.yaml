@@ -5,7 +5,7 @@
 
 ## Global configuration ##
 # Docker image containing seckeygen.sh in PATH
-idp_image: nxadm/idp-sealer-rollover:3.3.0
+idp_image: KULeuven-CCIS/idp-sealer-rollover:3.3.2
 # Docker user to run within the container, defaults to root.
 # docker_user: root
 # The local directory where the idp key stores are kept
