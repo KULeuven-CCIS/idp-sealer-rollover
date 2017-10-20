@@ -4,8 +4,8 @@ MAINTAINER Claudio Ramirez <pub.claudio@gmail.com>
 ### Environment ###
 #ENV app=idp \
 ENV \
-version=3.3.0 \
-idp_sha256="558c6b71e6eba8fbdff19ee8857368d1a6facdfe2c703afc70d5b1655411f552" \
+version=3.3.2 \
+idp_sha256="26408913a75f2a0228a0f51a42eaffc9dd449f762bc71b54e3a100aa4db013a7" \
 idp_baseurl="https://shibboleth.net/downloads/identity-provider" \
 PATH=/opt/idp/bin:$PATH
 
