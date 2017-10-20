@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/KULeuven-CCIS/idp-sealer-rollover.svg?branch=master)](https://travis-ci.org/KULeuven-CCIS/idp-sealer-rollover)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/KULeuven-CCIS/idp-sealer-rollover)](https://ci.appveyor.com/project/nxadm/idp-sealer-rollover)
+[![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/kuleuvenccis/idp-sealer-rollover/)
 
 idp-sealer-rollover is a helper program for the Open Source
 [Shibboleth IdP 3](https://shibboleth.net/products/identity-provider.html)
