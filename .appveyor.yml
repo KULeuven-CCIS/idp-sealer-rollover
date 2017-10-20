@@ -1,3 +1,4 @@
+clone_folder: c:\projects\%APPVEYOR_PROJECT_NAME%
 cache:
     - C:\strawberry
 install:
