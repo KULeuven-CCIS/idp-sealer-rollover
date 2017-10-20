@@ -1495,7 +1495,7 @@ $fatpacked{"YAML/Tiny.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'YAML_
   =cut
 YAML_TINY
 
-$fatpacked{"x86_64-linux/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX_LIST_UTIL';
+$fatpacked{"x86_64-linux-thread-multi/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX-THREAD-MULTI_LIST_UTIL';
   # Copyright (c) 1997-2009 Graham Barr <gbarr@pobox.com>. All rights reserved.
   # This program is free software; you can redistribute it and/or
   # modify it under the same terms as Perl itself.
@@ -1513,7 +1513,7 @@ $fatpacked{"x86_64-linux/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\
     all any first min max minstr maxstr none notall product reduce sum sum0 shuffle uniq uniqnum uniqstr
     pairs unpairs pairkeys pairvalues pairmap pairgrep pairfirst
   );
-  our $VERSION    = "1.47";
+  our $VERSION    = "1.45";
   our $XS_VERSION = $VERSION;
   $VERSION    = eval $VERSION;
   
@@ -1548,9 +1548,9 @@ $fatpacked{"x86_64-linux/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\
   
         max maxstr min minstr product sum sum0
   
-        pairs unpairs pairkeys pairvalues pairfirst pairgrep pairmap
+        pairs pairkeys pairvalues pairfirst pairgrep pairmap
   
-        shuffle uniq uniqnum uniqstr
+        shuffle uniqnum uniqstr
       );
   
   =head1 DESCRIPTION
@@ -2015,10 +2015,6 @@ $fatpacked{"x86_64-linux/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\
   the returned list is coerced into a numerical zero, so that the entire list of
   values returned by C<uniqnum> are well-behaved as numbers.
   
-  Note also that multiple IEEE C<NaN> values are treated as duplicates of
-  each other, regardless of any differences in their payloads, and despite
-  the fact that C<< 0+'NaN' == 0+'NaN' >> yields false.
-  
   =head2 uniqstr
   
       my @subset = uniqstr @values
@@ -2131,15 +2127,15 @@ $fatpacked{"x86_64-linux/List/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\
   =cut
   
   1;
-X86_64-LINUX_LIST_UTIL
+X86_64-LINUX-THREAD-MULTI_LIST_UTIL
 
-$fatpacked{"x86_64-linux/List/Util/XS.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX_LIST_UTIL_XS';
+$fatpacked{"x86_64-linux-thread-multi/List/Util/XS.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX-THREAD-MULTI_LIST_UTIL_XS';
   package List::Util::XS;
   use strict;
   use warnings;
   use List::Util;
   
-  our $VERSION = "1.47";       # FIXUP
+  our $VERSION = "1.45";       # FIXUP
   $VERSION = eval $VERSION;    # FIXUP
   
   1;
@@ -2176,9 +2172,9 @@ $fatpacked{"x86_64-linux/List/Util/XS.pm"} = '#line '.(1+__LINE__).' "'.__FILE__
   modify it under the same terms as Perl itself.
   
   =cut
-X86_64-LINUX_LIST_UTIL_XS
+X86_64-LINUX-THREAD-MULTI_LIST_UTIL_XS
 
-$fatpacked{"x86_64-linux/Scalar/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX_SCALAR_UTIL';
+$fatpacked{"x86_64-linux-thread-multi/Scalar/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX-THREAD-MULTI_SCALAR_UTIL';
   # Copyright (c) 1997-2007 Graham Barr <gbarr@pobox.com>. All rights reserved.
   # This program is free software; you can redistribute it and/or
   # modify it under the same terms as Perl itself.
@@ -2198,7 +2194,7 @@ $fatpacked{"x86_64-linux/Scalar/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__.
     dualvar isdual isvstring looks_like_number openhandle readonly set_prototype
     tainted
   );
-  our $VERSION    = "1.47";
+  our $VERSION    = "1.45";
   $VERSION   = eval $VERSION;
   
   require List::Util; # List::Util loads the XS
@@ -2539,9 +2535,9 @@ $fatpacked{"x86_64-linux/Scalar/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__.
   it under the same terms as Perl itself.
   
   =cut
-X86_64-LINUX_SCALAR_UTIL
+X86_64-LINUX-THREAD-MULTI_SCALAR_UTIL
 
-$fatpacked{"x86_64-linux/Sub/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX_SUB_UTIL';
+$fatpacked{"x86_64-linux-thread-multi/Sub/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'X86_64-LINUX-THREAD-MULTI_SUB_UTIL';
   # Copyright (c) 2014 Paul Evans <leonerd@leonerd.org.uk>. All rights reserved.
   # This program is free software; you can redistribute it and/or
   # modify it under the same terms as Perl itself.
@@ -2559,7 +2555,7 @@ $fatpacked{"x86_64-linux/Sub/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"
     subname set_subname
   );
   
-  our $VERSION    = "1.47";
+  our $VERSION    = "1.45";
   $VERSION   = eval $VERSION;
   
   require List::Util; # as it has the XS
@@ -2693,7 +2689,7 @@ $fatpacked{"x86_64-linux/Sub/Util.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"
   =cut
   
   1;
-X86_64-LINUX_SUB_UTIL
+X86_64-LINUX-THREAD-MULTI_SUB_UTIL
 
 s/^  //mg for values %fatpacked;
 
@@ -2732,10 +2728,10 @@ unshift @INC, bless \%fatpacked, $class;
   } # END OF FATPACK CODE
 
 
-#######################################################
-# Roll over IdP sealer keys using a Idp Docker image. #
-# https://github.com/nxadm/idp-sealer-rollover        #
-#######################################################
+########################################################
+# Roll over IdP sealer keys using a Idp Docker image.  #
+# https://github.com/KULeuven-CCIS/idp-sealer-rollover #
+########################################################
 
 use warnings;
 use strict;
@@ -2745,8 +2741,8 @@ use Getopt::Long;
 use POSIX 'strftime';
 use YAML::Tiny;
 
-our $VERSION = '0.3.2';
-my  $repo    = 'https://github.com/nxadm/idp-sealer-rollover';
+our $VERSION = '0.3.3';
+my  $repo    = 'https://github.com/KULeuven-CCIS/idp-sealer-rollover';
 
 ### CLI ###
 # Defaults
